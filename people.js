@@ -8,8 +8,11 @@
    3. Avatar filename should normally match the slug
       (e.g. assets/people/stefan.jpg)
    4. Separate each profile object with a comma
-   5. Business phone, website, cover and QR may be shared
-   6. Mobile, email, name, role and avatar are normally unique
+   5. Business phone, website, cover and website QR may be shared
+   6. Mobile, email, name, role, avatar and card QR are
+      normally employee-specific
+   7. After adding a person, generate their card QR PNG:
+      assets/qr-card-SLUG.png → their GitHub Pages card URL
    ========================================================= */
 
 const people = {
@@ -29,7 +32,10 @@ const people = {
     cover: "assets/cover.jpg",
     qrImage: "assets/qr-website.png",
     qrUrl: "https://patiotechwholesale.com.au",
-    qrLabel: "Scan for website"
+    qrLabel: "Scan for website",
+    cardQrImage: "assets/qr-card-jason.png",
+    cardQrUrl: "https://goomoralybeam.github.io/digital-business-card/?person=jason",
+    cardQrLabel: "Scan for this card"
   },
 
   alice: {
@@ -48,7 +54,10 @@ const people = {
     cover: "assets/cover.jpg",
     qrImage: "assets/qr-website.png",
     qrUrl: "https://patiotechwholesale.com.au",
-    qrLabel: "Scan for website"
+    qrLabel: "Scan for website",
+    cardQrImage: "assets/qr-card-alice.png",
+    cardQrUrl: "https://goomoralybeam.github.io/digital-business-card/?person=alice",
+    cardQrLabel: "Scan for this card"
   },
 
   stefan: {
@@ -67,6 +76,9 @@ const people = {
     cover: "assets/cover.jpg",
     qrImage: "assets/qr-website.png",
     qrUrl: "https://patiotechwholesale.com.au",
-    qrLabel: "Scan for website"
+    qrLabel: "Scan for website",
+    cardQrImage: "assets/qr-card-stefan.png",
+    cardQrUrl: "https://goomoralybeam.github.io/digital-business-card/?person=stefan",
+    cardQrLabel: "Scan for this card"
   }
 };

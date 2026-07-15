@@ -30,7 +30,10 @@ const FALLBACK_JASON = {
   cover: "assets/cover.jpg",
   qrImage: "assets/qr-website.png",
   qrUrl: "https://patiotechwholesale.com.au",
-  qrLabel: "Scan for website"
+  qrLabel: "Scan for website",
+  cardQrImage: "assets/qr-card-jason.png",
+  cardQrUrl: "https://goomoralybeam.github.io/digital-business-card/?person=jason",
+  cardQrLabel: "Scan for this card"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -164,11 +167,23 @@ function applyProfile(slug, profile) {
     qrLabel.textContent = profile.qrLabel;
   }
 
+  const cardQrImage = document.getElementById("qr-card-image");
+  if (cardQrImage && profile.cardQrImage) {
+    cardQrImage.src = profile.cardQrImage;
+    cardQrImage.alt = `QR code linking to ${profile.fullName}'s digital business card`;
+  }
+
+  const cardQrLabel = document.getElementById("qr-card-label");
+  if (cardQrLabel && profile.cardQrLabel) {
+    cardQrLabel.textContent = profile.cardQrLabel;
+  }
+
   const mobile = document.getElementById("link-mobile");
   const business = document.getElementById("link-business");
   const email = document.getElementById("link-email");
   const website = document.getElementById("link-website");
   const qr = document.getElementById("link-qr");
+  const qrCard = document.getElementById("link-qr-card");
 
   if (mobile) {
     mobile.href = `tel:${profile.mobileLink}`;
@@ -198,6 +213,15 @@ function applyProfile(slug, profile) {
     qr.setAttribute(
       "aria-label",
       `Scan or tap QR code to open ${profile.qrUrl}`
+    );
+  }
+  if (qrCard && profile.cardQrUrl) {
+    qrCard.href = profile.cardQrUrl;
+    qrCard.target = "_blank";
+    qrCard.rel = "noopener noreferrer";
+    qrCard.setAttribute(
+      "aria-label",
+      `Scan or tap QR code to open ${profile.fullName}'s digital business card`
     );
   }
 
