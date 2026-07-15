@@ -15,7 +15,7 @@
 const people = {
   jason: {
     fullName: "Jason Dao",
-    role: "System Administration",
+    role: "System Admin",
     company: "Patiotech Wholesale",
     mobileDisplay: "+61 414 225 210",
     mobileLink: "+61414225210",

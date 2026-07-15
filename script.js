@@ -16,7 +16,7 @@ let vcardObjectUrl = null;
 /* Built-in Jason profile — used if people.js is missing or incomplete */
 const FALLBACK_JASON = {
   fullName: "Jason Dao",
-  role: "System Administration",
+  role: "System Admin",
   company: "Patiotech Wholesale",
   mobileDisplay: "+61 414 225 210",
   mobileLink: "+61414225210",
