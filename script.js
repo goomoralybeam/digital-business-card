@@ -111,7 +111,7 @@ function buildDetailsText() {
 async function handleCopyDetails(button) {
   const text = buildDetailsText();
   const label = button.querySelector(".btn-label");
-  const original = label ? label.textContent : "Copy Details";
+  const original = label ? label.textContent : "Copy";
 
   const ok = await copyText(text);
   if (ok) {
@@ -123,7 +123,7 @@ async function handleCopyDetails(button) {
 
 async function handleShare(button) {
   const label = button.querySelector(".btn-label");
-  const original = label ? label.textContent : "Share Card";
+  const original = label ? label.textContent : "Share";
   const shareData = {
     title: document.title,
     text: `${contact.fullName} · ${contact.role} at ${contact.company}`,

@@ -94,7 +94,9 @@ Real photo: `assets/avatar.jpg`
 
 ### Cover image
 
-Real project image: `assets/cover.png`
+Web cover image: `assets/cover.jpg` (optimised for mobile).
+
+The original large `assets/cover.png` is optional and can be deleted to keep the GitHub repo smaller.
 
 ### QR code
 
