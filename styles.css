@@ -1,7 +1,7 @@
 /* =========================================================
    Jason Dao · Patiotech Wholesale — Digital Business Card
    Theme: White · Logo orange · COLORBOND Monument
-   Compact mobile layout — fit one screen where possible
+   Multi-person static card (GitHub Pages compatible)
    ========================================================= */
 
 :root {
@@ -20,14 +20,11 @@
   --shadow-sm: 0 2px 6px rgba(50, 50, 51, 0.07);
   --radius: 14px;
   --radius-sm: 10px;
-  --page-pad: 10px;
-  --card-max: 420px;
+  --page-pad: 12px;
+  --card-max: 440px;
   --focus: 0 0 0 3px rgba(240, 128, 38, 0.45);
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
-  /* Short cover strip — not 16:9 */
-  --cover-h: 72px;
-  --avatar: 68px;
+  --avatar: 108px;
 }
 
 *,
@@ -38,18 +35,17 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  height: 100%;
 }
 
 body {
   margin: 0;
-  min-height: 100%;
-  min-height: 100dvh;
+  min-height: 100vh;
   font-family: var(--font);
   font-size: 15px;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--text);
   background: var(--bg);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 img {
@@ -106,11 +102,7 @@ button {
 .page {
   width: min(100%, calc(var(--card-max) + var(--page-pad) * 2));
   margin: 0 auto;
-  padding: 8px var(--page-pad) calc(8px + env(safe-area-inset-bottom, 0px));
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 16px var(--page-pad) 24px;
 }
 
 .card {
@@ -128,12 +120,12 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 18px 8px;
+  padding: 14px 20px 12px;
   background: #000000;
 }
 
 .logo {
-  width: min(190px, 70%);
+  width: min(220px, 72%);
   height: auto;
   object-fit: contain;
   object-position: center;
@@ -143,7 +135,7 @@ button {
 
 .qr-section {
   text-align: center;
-  padding: 8px 16px 6px;
+  padding: 10px 16px 12px;
 }
 
 .qr-link {
@@ -158,7 +150,7 @@ button {
 
 .qr-frame {
   display: inline-flex;
-  padding: 5px;
+  padding: 6px;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -166,15 +158,15 @@ button {
 }
 
 .qr-image {
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   object-fit: contain;
   image-rendering: pixelated;
 }
 
 .qr-title {
-  margin: 6px 0 0;
-  font-size: 0.75rem;
+  margin: 8px 0 0;
+  font-size: 0.8rem;
   font-weight: 650;
   color: var(--monument);
 }
@@ -183,16 +175,19 @@ button {
   display: none;
 }
 
-/* ---------- Cover + profile (short strip) ---------- */
+/* ---------- Cover + profile (restored pre-compaction height) ---------- */
 
 .visual-section {
   position: relative;
-  margin-bottom: calc(var(--avatar) / 2 + 8px);
+  margin-bottom: calc(var(--avatar) / 2 + 14px);
 }
 
 .cover-wrap {
-  height: var(--cover-h);
-  max-height: var(--cover-h);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  max-height: 220px;
   overflow: hidden;
   background: var(--monument);
 }
@@ -201,7 +196,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center;
 }
 
 .profile-wrap {
@@ -219,8 +214,8 @@ button {
   border-radius: 50%;
   object-fit: cover;
   object-position: center 18%;
-  border: 3px solid var(--white);
-  box-shadow: 0 3px 10px rgba(50, 50, 51, 0.22);
+  border: 4px solid var(--white);
+  box-shadow: 0 4px 14px rgba(50, 50, 51, 0.22);
   background: var(--monument);
 }
 
@@ -228,12 +223,12 @@ button {
 
 .identity {
   text-align: center;
-  padding: 4px 16px 2px;
+  padding: 8px 18px 6px;
 }
 
 .identity h1 {
-  margin: 0 0 2px;
-  font-size: 1.28rem;
+  margin: 0 0 4px;
+  font-size: clamp(1.35rem, 5vw, 1.65rem);
   font-weight: 750;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -241,15 +236,15 @@ button {
 }
 
 .identity .role {
-  margin: 0 0 1px;
-  font-size: 0.85rem;
+  margin: 0 0 2px;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--muted);
 }
 
 .identity .company {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 650;
   color: var(--monument);
 }
@@ -259,16 +254,16 @@ button {
 .contacts {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 10px 12px 4px;
+  gap: 8px;
+  padding: 14px 14px 6px;
 }
 
 .contact-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 7px 10px;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px 12px;
   background: var(--soft);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
@@ -287,32 +282,32 @@ button {
 }
 
 .contact-icon {
-  flex: 0 0 34px;
-  width: 34px;
-  height: 34px;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
   display: grid;
   place-items: center;
-  border-radius: 8px;
+  border-radius: 9px;
   background: var(--monument);
   color: var(--white);
 }
 
 .contact-icon img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   filter: invert(1);
 }
 
 .contact-text {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 1px;
   min-width: 0;
   flex: 1;
 }
 
 .contact-label {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -321,7 +316,7 @@ button {
 }
 
 .contact-value {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--monument);
   word-break: break-word;
@@ -330,7 +325,7 @@ button {
 }
 
 .contact-value--wrap {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
 }
 
 /* ---------- Primary actions (Save / Copy / Share) ---------- */
@@ -338,8 +333,8 @@ button {
 .primary-actions {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  gap: 6px;
-  padding: 8px 12px 12px;
+  gap: 8px;
+  padding: 12px 14px 18px;
 }
 
 .btn {
@@ -347,10 +342,10 @@ button {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 44px;
-  padding: 8px 8px;
+  min-height: 46px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 650;
   text-align: center;
   transition: background-color 0.15s ease, transform 0.1s ease;
@@ -414,6 +409,119 @@ button {
   filter: invert(1);
 }
 
+/* ---------- Not found / message ---------- */
+
+.page--message {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.card--message .message-body {
+  padding: 28px 22px 30px;
+  text-align: center;
+}
+
+.card--message h1 {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  color: var(--monument);
+}
+
+.card--message p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.card--message .btn {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ---------- Team directory ---------- */
+
+.directory-body {
+  padding: 22px 16px 24px;
+}
+
+.directory-body h1 {
+  margin: 0 0 6px;
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--monument);
+}
+
+.directory-intro {
+  margin: 0 0 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.directory-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.directory-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 10px 12px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.directory-link:hover {
+  background: var(--white);
+  border-color: var(--orange);
+}
+
+.directory-link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-color: var(--orange);
+}
+
+.directory-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 2px solid var(--white);
+  box-shadow: 0 2px 8px rgba(50, 50, 51, 0.15);
+  background: var(--monument);
+  flex-shrink: 0;
+}
+
+.directory-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.directory-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--monument);
+}
+
+.directory-role {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 /* ---------- Copy fallback dialog ---------- */
 
 .copy-fallback {
@@ -470,62 +578,18 @@ button {
   border-color: var(--orange);
 }
 
-/* ---------- Extra-short phones ---------- */
+/* ---------- Responsive ---------- */
 
-@media (max-height: 700px) {
-  :root {
-    --cover-h: 56px;
-    --avatar: 58px;
-  }
-
-  .page {
-    padding-top: 4px;
-    padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
-    justify-content: flex-start;
-  }
-
-  .card-header {
-    padding: 6px 14px;
-  }
-
+@media (max-width: 360px) {
   .logo {
-    width: min(160px, 64%);
+    width: min(190px, 76%);
   }
 
   .qr-image {
-    width: 56px;
-    height: 56px;
+    width: 84px;
+    height: 84px;
   }
 
-  .qr-section {
-    padding: 4px 12px 2px;
-  }
-
-  .qr-title {
-    margin-top: 4px;
-    font-size: 0.7rem;
-  }
-
-  .identity h1 {
-    font-size: 1.15rem;
-  }
-
-  .contacts {
-    gap: 4px;
-    padding-top: 8px;
-  }
-
-  .contact-row {
-    min-height: 40px;
-    padding: 5px 8px;
-  }
-
-  .primary-actions {
-    padding-bottom: 10px;
-  }
-}
-
-@media (max-width: 360px) {
   .btn {
     font-size: 0.78rem;
     gap: 4px;
@@ -538,60 +602,56 @@ button {
   }
 
   .contact-value--wrap {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
+  }
+
+  :root {
+    --avatar: 96px;
   }
 }
 
 @media (min-width: 480px) {
-  :root {
-    --cover-h: 88px;
-    --avatar: 76px;
-    --page-pad: 14px;
-  }
-
   .page {
-    padding-top: 16px;
+    padding-top: 22px;
   }
 
   .logo {
-    width: min(210px, 72%);
+    width: min(240px, 72%);
   }
 
   .qr-image {
-    width: 88px;
-    height: 88px;
+    width: 110px;
+    height: 110px;
   }
 
-  .identity h1 {
-    font-size: 1.4rem;
+  :root {
+    --avatar: 112px;
   }
 }
 
 @media (min-width: 768px) {
   .page {
-    padding-top: 28px;
-    justify-content: flex-start;
-    min-height: auto;
+    padding-top: 36px;
   }
 
   .card {
     border-radius: 16px;
   }
 
-  :root {
-    --cover-h: 100px;
-    --avatar: 84px;
+  .qr-image {
+    width: 120px;
+    height: 120px;
   }
 
-  .qr-image {
-    width: 96px;
-    height: 96px;
+  :root {
+    --avatar: 118px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .btn,
-  .contact-row {
+  .contact-row,
+  .directory-link {
     transition: none;
   }
 

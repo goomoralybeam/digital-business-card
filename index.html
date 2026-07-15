@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Jason Dao · Patiotech Wholesale</title>
-  <meta name="description" content="Digital business card for Jason Dao, System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
+  <meta name="description" id="meta-description" content="Digital business card for Jason Dao, System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
   <meta name="theme-color" content="#323233">
-  <meta name="author" content="Jason Dao, Patiotech Wholesale">
+  <meta name="author" id="meta-author" content="Jason Dao, Patiotech Wholesale">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Jason Dao · Patiotech Wholesale">
-  <meta property="og:description" content="System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
+  <meta property="og:title" id="og-title" content="Jason Dao · Patiotech Wholesale">
+  <meta property="og:description" id="og-description" content="System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
   <meta property="og:type" content="profile">
-  <meta property="og:image" content="assets/cover.jpg">
+  <meta property="og:image" id="og-image" content="assets/cover.jpg">
   <meta property="og:locale" content="en_AU">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Jason Dao · Patiotech Wholesale">
-  <meta name="twitter:description" content="System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
-  <meta name="twitter:image" content="assets/cover.jpg">
+  <meta name="twitter:title" id="twitter-title" content="Jason Dao · Patiotech Wholesale">
+  <meta name="twitter:description" id="twitter-description" content="System Administration at Patiotech Wholesale. Outdoor Living Engineered.">
+  <meta name="twitter:image" id="twitter-image" content="assets/cover.jpg">
 
   <link rel="icon" href="logo.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
@@ -27,7 +27,8 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="page">
+  <!-- ==================== Employee card ==================== -->
+  <div class="page" id="view-card">
     <article class="card" id="main">
       <header class="card-header">
         <img
@@ -53,6 +54,7 @@
           <span class="qr-frame">
             <img
               class="qr-image"
+              id="qr-image"
               src="assets/qr-website.png"
               alt="QR code linking to patiotechwholesale.com.au"
               width="330"
@@ -61,7 +63,7 @@
             >
           </span>
         </a>
-        <p class="qr-title">Scan for website</p>
+        <p class="qr-title" id="qr-label">Scan for website</p>
       </section>
 
       <section class="visual-section" aria-label="Profile">
@@ -80,7 +82,7 @@
           <img
             class="profile-image"
             id="profile-image"
-            src="assets/avatar.jpg"
+            src="assets/people/jason.jpg"
             alt="Jason Dao"
             width="1080"
             height="1080"
@@ -145,7 +147,7 @@
       </section>
 
       <section class="primary-actions" aria-label="Card actions">
-        <a class="btn btn-primary" id="btn-save" href="contact.vcf" download="Jason-Dao-Patiotech.vcf" aria-label="Save contact as vCard">
+        <a class="btn btn-primary" id="btn-save" href="contact.vcf" download="jason-dao.vcf" aria-label="Save contact as vCard">
           <img class="btn-icon" src="assets/icons/contact.svg" alt="" width="20" height="20" aria-hidden="true">
           <span>Save</span>
         </a>
@@ -161,6 +163,34 @@
     </article>
   </div>
 
+  <!-- ==================== Contact not found ==================== -->
+  <div class="page page--message" id="view-not-found" hidden>
+    <article class="card card--message" role="alert" aria-labelledby="not-found-title">
+      <header class="card-header">
+        <img class="logo" src="logo.png" alt="Patiotech Wholesale logo" width="2702" height="521" decoding="async">
+      </header>
+      <div class="message-body">
+        <h1 id="not-found-title">Contact not found</h1>
+        <p>That employee profile is not available. Please check the link or return to the default contact card.</p>
+        <a class="btn btn-primary" id="btn-back-home" href="./">Back to Jason Dao</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ==================== Team directory (?directory=true) ==================== -->
+  <div class="page" id="view-directory" hidden>
+    <article class="card" id="directory-main" aria-labelledby="directory-title">
+      <header class="card-header">
+        <img class="logo" src="logo.png" alt="Patiotech Wholesale logo" width="2702" height="521" decoding="async">
+      </header>
+      <div class="directory-body">
+        <h1 id="directory-title">Our Team</h1>
+        <p class="directory-intro">Select a team member to open their digital business card.</p>
+        <ul class="directory-list" id="directory-list"></ul>
+      </div>
+    </article>
+  </div>
+
   <div class="copy-fallback" id="copy-fallback" hidden>
     <div class="copy-fallback__panel" role="dialog" aria-modal="true" aria-labelledby="fallback-title">
       <h2 id="fallback-title">Copy details</h2>
@@ -170,6 +200,7 @@
     </div>
   </div>
 
-  <script src="script.js" defer></script>
+  <script src="people.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
