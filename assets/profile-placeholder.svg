@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Profile placeholder with initials JD">
+  <rect width="400" height="400" fill="#2A3544"/>
+  <circle cx="200" cy="200" r="160" fill="#1B2838"/>
+  <text x="200" y="220" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="120" font-weight="600" fill="#F4F6F8" letter-spacing="4">JD</text>
+</svg>
