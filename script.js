@@ -13,12 +13,27 @@ let activeProfile = null;
 /** @type {string|null} */
 let vcardObjectUrl = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof people !== "object" || people === null) {
-    showNotFound();
-    return;
-  }
+/* Built-in Jason profile — used if people.js is missing or incomplete */
+const FALLBACK_JASON = {
+  fullName: "Jason Dao",
+  role: "System Administration",
+  company: "Patiotech Wholesale",
+  mobileDisplay: "+61 414 225 210",
+  mobileLink: "+61414225210",
+  businessDisplay: "+61 2 8380 0089",
+  businessLink: "+61283800089",
+  email: "jason.d@patiotechwholesale.com.au",
+  websiteDisplay: "patiotechwholesale.com.au",
+  websiteUrl: "https://patiotechwholesale.com.au",
+  slogan: "Outdoor Living Engineered",
+  avatar: "assets/people/jason.jpg",
+  cover: "assets/cover.jpg",
+  qrImage: "assets/qr-website.png",
+  qrUrl: "https://patiotechwholesale.com.au",
+  qrLabel: "Scan for website"
+};
 
+document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
 
   if (params.get("directory") === "true") {
@@ -27,8 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const selected = getSelectedPerson();
+
+  // Only show "Contact not found" for an explicit unknown employee slug.
+  // Never show it for the default/Jason card.
   if (!selected.profile) {
-    showNotFound(selected.slug);
+    showNotFound();
     return;
   }
 
@@ -37,17 +55,37 @@ document.addEventListener("DOMContentLoaded", () => {
   wireActions();
 });
 
+function getPeopleRegistry() {
+  if (typeof people === "object" && people !== null) {
+    return people;
+  }
+  return {};
+}
+
 function getSelectedPerson() {
   const params = new URLSearchParams(window.location.search);
-  const requestedSlug = (params.get("person") || DEFAULT_SLUG)
-    .trim()
-    .toLowerCase();
+  const raw = params.get("person");
+  const trimmed = raw == null ? "" : String(raw).trim();
+  const requestedSlug = trimmed ? trimmed.toLowerCase() : DEFAULT_SLUG;
+  const registry = getPeopleRegistry();
+
+  let profile = Object.prototype.hasOwnProperty.call(registry, requestedSlug)
+    ? registry[requestedSlug]
+    : null;
+
+  // Default / jason must always resolve, even if people.js failed to load
+  if (!profile && requestedSlug === DEFAULT_SLUG) {
+    profile = registry.jason || FALLBACK_JASON;
+  }
+
+  // Explicit unknown employee (e.g. ?person=stefan before they were added)
+  if (!profile && trimmed && requestedSlug !== DEFAULT_SLUG) {
+    return { slug: requestedSlug, profile: null };
+  }
 
   return {
-    slug: requestedSlug,
-    profile: Object.prototype.hasOwnProperty.call(people, requestedSlug)
-      ? people[requestedSlug]
-      : null
+    slug: requestedSlug || DEFAULT_SLUG,
+    profile: profile || FALLBACK_JASON
   };
 }
 
@@ -225,8 +263,13 @@ function renderDirectory() {
   if (!list) return;
   list.replaceChildren();
 
-  Object.keys(people).forEach((slug) => {
-    const profile = people[slug];
+  const registry = getPeopleRegistry();
+  const entries = Object.keys(registry).length
+    ? registry
+    : { jason: FALLBACK_JASON };
+
+  Object.keys(entries).forEach((slug) => {
+    const profile = entries[slug];
     const li = document.createElement("li");
     li.className = "directory-item";
 

@@ -32,25 +32,24 @@ const people = {
     qrLabel: "Scan for website"
   }
 
-  /*
-  ,
-  stefan: {
-    fullName: "Stefan Dimov",
-    role: "Sales Manager",
-    company: "Patiotech Wholesale",
-    mobileDisplay: "+61 ...",
-    mobileLink: "+61...",
-    businessDisplay: "+61 2 8380 0089",
-    businessLink: "+61283800089",
-    email: "...@patiotechwholesale.com.au",
-    websiteDisplay: "patiotechwholesale.com.au",
-    websiteUrl: "https://patiotechwholesale.com.au",
-    slogan: "Outdoor Living Engineered",
-    avatar: "assets/people/stefan.jpg",
-    cover: "assets/cover.jpg",
-    qrImage: "assets/qr-website.png",
-    qrUrl: "https://patiotechwholesale.com.au",
-    qrLabel: "Scan for website"
-  }
-  */
+  // Example — copy, uncomment, and fill in to add another person:
+  // ,
+  // stefan: {
+  //   fullName: "Stefan Dimov",
+  //   role: "Sales Manager",
+  //   company: "Patiotech Wholesale",
+  //   mobileDisplay: "+61 ...",
+  //   mobileLink: "+61...",
+  //   businessDisplay: "+61 2 8380 0089",
+  //   businessLink: "+61283800089",
+  //   email: "...@patiotechwholesale.com.au",
+  //   websiteDisplay: "patiotechwholesale.com.au",
+  //   websiteUrl: "https://patiotechwholesale.com.au",
+  //   slogan: "Outdoor Living Engineered",
+  //   avatar: "assets/people/stefan.jpg",
+  //   cover: "assets/cover.jpg",
+  //   qrImage: "assets/qr-website.png",
+  //   qrUrl: "https://patiotechwholesale.com.au",
+  //   qrLabel: "Scan for website"
+  // }
 };
