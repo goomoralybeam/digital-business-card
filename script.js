@@ -14,6 +14,19 @@ let activeProfile = null;
 let vcardObjectUrl = null;
 
 /* Built-in Jason profile — used if people.js is missing or incomplete */
+const FALLBACK_COMPANY_INFO = {
+  addressDisplay: "302 Woodpark Rd, Smithfield NSW 2164",
+  addressMapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=302%20Woodpark%20Rd%2C%20Smithfield%20NSW%202164",
+  addressStreet: "302 Woodpark Rd",
+  addressLocality: "Smithfield",
+  addressRegion: "NSW",
+  addressPostcode: "2164",
+  addressCountry: "Australia",
+  hoursDisplay:
+    "Mon–Fri 7:00am–3:30pm (all services)\nSat 7:00am–3:30pm (pickup only)"
+};
+
 const FALLBACK_JASON = {
   fullName: "Jason Dao",
   role: "System Admin",
@@ -33,7 +46,8 @@ const FALLBACK_JASON = {
   qrLabel: "Scan for website",
   cardQrImage: "assets/qr-card-jason.png",
   cardQrUrl: "https://goomoralybeam.github.io/digital-business-card/?person=jason",
-  cardQrLabel: "Scan for this card"
+  cardQrLabel: "Scan for this card",
+  ...FALLBACK_COMPANY_INFO
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -65,6 +79,19 @@ function getPeopleRegistry() {
   return {};
 }
 
+function getCompanyInfo() {
+  if (typeof companyInfo === "object" && companyInfo !== null) {
+    return companyInfo;
+  }
+  return FALLBACK_COMPANY_INFO;
+}
+
+/** Merge shared company fields onto an employee profile */
+function withCompanyInfo(profile) {
+  if (!profile) return null;
+  return Object.assign({}, getCompanyInfo(), profile);
+}
+
 function getSelectedPerson() {
   const params = new URLSearchParams(window.location.search);
   const raw = params.get("person");
@@ -86,9 +113,11 @@ function getSelectedPerson() {
     return { slug: requestedSlug, profile: null };
   }
 
+  const resolved = profile || FALLBACK_JASON;
+
   return {
     slug: requestedSlug || DEFAULT_SLUG,
-    profile: profile || FALLBACK_JASON
+    profile: withCompanyInfo(resolved)
   };
 }
 
@@ -182,6 +211,7 @@ function applyProfile(slug, profile) {
   const business = document.getElementById("link-business");
   const email = document.getElementById("link-email");
   const website = document.getElementById("link-website");
+  const address = document.getElementById("link-address");
   const qr = document.getElementById("link-qr");
   const qrCard = document.getElementById("link-qr-card");
 
@@ -204,6 +234,15 @@ function applyProfile(slug, profile) {
     website.setAttribute(
       "aria-label",
       `Visit ${profile.websiteDisplay} (opens in a new tab)`
+    );
+  }
+  if (address && profile.addressMapsUrl) {
+    address.href = profile.addressMapsUrl;
+    address.target = "_blank";
+    address.rel = "noopener noreferrer";
+    address.setAttribute(
+      "aria-label",
+      `Open address ${profile.addressDisplay} in maps (opens in a new tab)`
     );
   }
   if (qr) {
@@ -342,6 +381,8 @@ function buildDetailsText(profile) {
     `Business: ${profile.businessDisplay}`,
     `Email: ${profile.email}`,
     `Website: ${profile.websiteUrl}`,
+    `Address: ${profile.addressDisplay}`,
+    `Opening hours: ${String(profile.hoursDisplay).replace(/\n/g, "; ")}`,
     profile.slogan
   ].join("\n");
 }
@@ -478,6 +519,21 @@ function splitName(fullName) {
 
 function buildVCard(profile) {
   const { first, last } = splitName(profile.fullName);
+  const adr = [
+    "",
+    "",
+    profile.addressStreet || "",
+    profile.addressLocality || "",
+    profile.addressRegion || "",
+    profile.addressPostcode || "",
+    profile.addressCountry || ""
+  ]
+    .map(escapeVCardValue)
+    .join(";");
+
+  const noteParts = [profile.slogan, profile.hoursDisplay].filter(Boolean);
+  const note = noteParts.join("\n");
+
   const lines = [
     "BEGIN:VCARD",
     "VERSION:3.0",
@@ -489,7 +545,8 @@ function buildVCard(profile) {
     `TEL;TYPE=WORK,VOICE:${escapeVCardValue(profile.businessLink)}`,
     `EMAIL;TYPE=WORK:${escapeVCardValue(profile.email)}`,
     `URL:${escapeVCardValue(profile.websiteUrl)}`,
-    `NOTE:${escapeVCardValue(profile.slogan)}`,
+    `ADR;TYPE=WORK:${adr}`,
+    `NOTE:${escapeVCardValue(note)}`,
     "END:VCARD"
   ];
   return lines.join("\r\n") + "\r\n";

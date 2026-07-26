@@ -8,12 +8,27 @@
    3. Avatar filename should normally match the slug
       (e.g. assets/people/stefan.jpg)
    4. Separate each profile object with a comma
-   5. Business phone, website, cover and website QR may be shared
+   5. Business phone, website, cover, website QR, address and
+      opening hours may be shared (see companyInfo below)
    6. Mobile, email, name, role, avatar and card QR are
       normally employee-specific
    7. After adding a person, generate their card QR PNG:
       assets/qr-card-SLUG.png → their GitHub Pages card URL
    ========================================================= */
+
+/** Shared company details applied to every employee card */
+const companyInfo = {
+  addressDisplay: "302 Woodpark Rd, Smithfield NSW 2164",
+  addressMapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=302%20Woodpark%20Rd%2C%20Smithfield%20NSW%202164",
+  addressStreet: "302 Woodpark Rd",
+  addressLocality: "Smithfield",
+  addressRegion: "NSW",
+  addressPostcode: "2164",
+  addressCountry: "Australia",
+  hoursDisplay:
+    "Mon–Fri 7:00am–3:30pm (all services)\nSat 7:00am–3:30pm (pickup only)"
+};
 
 const people = {
   jason: {
