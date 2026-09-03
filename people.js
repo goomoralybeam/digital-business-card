@@ -77,7 +77,7 @@ const people = {
 
   kimhak: {
     fullName: "KimHak Keo",
-    role: "CEO",
+    role: "Managing Director",
     company: "Patiotech Wholesale",
     mobileDisplay: "+61 404 253 154",
     mobileLink: "+61404253154",
