@@ -99,7 +99,7 @@ const people = {
 
   robert: {
     fullName: "Robert Piez",
-    role: "Sale Manager",
+    role: "General Manager",
     company: "Patiotech Wholesale",
     mobileDisplay: "+61 2 8380 0089",
     mobileLink: "+61283800089",
