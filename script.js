@@ -216,8 +216,15 @@ function applyProfile(slug, profile) {
   const qrCard = document.getElementById("link-qr-card");
 
   if (mobile) {
-    mobile.href = `tel:${profile.mobileLink}`;
-    mobile.setAttribute("aria-label", `Call mobile ${profile.mobileDisplay}`);
+    const hasMobile = Boolean(profile.mobileDisplay && profile.mobileLink);
+    mobile.hidden = !hasMobile;
+    if (hasMobile) {
+      mobile.href = `tel:${profile.mobileLink}`;
+      mobile.setAttribute("aria-label", `Call mobile ${profile.mobileDisplay}`);
+    } else {
+      mobile.removeAttribute("href");
+      mobile.removeAttribute("aria-label");
+    }
   }
   if (business) {
     business.href = `tel:${profile.businessLink}`;
@@ -373,18 +380,23 @@ function renderDirectory() {
 /* ---------- Copy / Share ---------- */
 
 function buildDetailsText(profile) {
-  return [
+  const lines = [
     profile.fullName,
     profile.role,
-    profile.company,
-    `Mobile: ${profile.mobileDisplay}`,
+    profile.company
+  ];
+  if (profile.mobileDisplay) {
+    lines.push(`Mobile: ${profile.mobileDisplay}`);
+  }
+  lines.push(
     `Business: ${profile.businessDisplay}`,
     `Email: ${profile.email}`,
     `Website: ${profile.websiteUrl}`,
     `Address: ${profile.addressDisplay}`,
     `Opening hours: ${String(profile.hoursDisplay).replace(/\n/g, "; ")}`,
     profile.slogan
-  ].join("\n");
+  );
+  return lines.join("\n");
 }
 
 function getEmployeeShareUrl(slug) {
@@ -540,15 +552,19 @@ function buildVCard(profile) {
     `N:${escapeVCardValue(last)};${escapeVCardValue(first)};;;`,
     `FN:${escapeVCardValue(profile.fullName)}`,
     `ORG:${escapeVCardValue(profile.company)}`,
-    `TITLE:${escapeVCardValue(profile.role)}`,
-    `TEL;TYPE=CELL:${escapeVCardValue(profile.mobileLink)}`,
+    `TITLE:${escapeVCardValue(profile.role)}`
+  ];
+  if (profile.mobileLink) {
+    lines.push(`TEL;TYPE=CELL:${escapeVCardValue(profile.mobileLink)}`);
+  }
+  lines.push(
     `TEL;TYPE=WORK,VOICE:${escapeVCardValue(profile.businessLink)}`,
     `EMAIL;TYPE=WORK:${escapeVCardValue(profile.email)}`,
     `URL:${escapeVCardValue(profile.websiteUrl)}`,
     `ADR;TYPE=WORK:${adr}`,
     `NOTE:${escapeVCardValue(note)}`,
     "END:VCARD"
-  ];
+  );
   return lines.join("\r\n") + "\r\n";
 }
 
